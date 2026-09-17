@@ -1,1 +1,2586 @@
+/* =========================================================
+   LUCAS.DEV — VAN GOGH
+   STYLE.CSS
+========================================================= */
 
+
+/* =========================================================
+   RESET
+========================================================= */
+
+* {
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: 90px;
+}
+
+body {
+  min-height: 100vh;
+  background: #071321;
+  color: #f4e7bd;
+  font-family: "Space Grotesk", sans-serif;
+  overflow-x: hidden;
+}
+
+body.light-mode {
+  background: #eee2bd;
+  color: #17202a;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+button {
+  font: inherit;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+
+/* =========================================================
+   VARIÁVEIS
+========================================================= */
+
+:root {
+
+  --night: #071321;
+  --night-2: #0b1c2d;
+  --night-3: #102a42;
+
+  --blue: #174b70;
+  --blue-light: #28688d;
+  --blue-paint: #347fa1;
+
+  --yellow: #f3c84b;
+  --yellow-light: #ffe28a;
+  --gold: #dcae38;
+
+  --cream: #f4e7bd;
+  --cream-soft: #d8cda8;
+
+  --ink: #09111b;
+
+  --border: rgba(244, 231, 189, .20);
+
+  --hand: "Caveat", cursive;
+  --mono: "DM Mono", monospace;
+
+  --header-height: 82px;
+}
+
+
+/* =========================================================
+   TEXTURA GERAL
+========================================================= */
+
+.background-texture {
+
+  position: fixed;
+  inset: 0;
+
+  z-index: -10;
+
+  pointer-events: none;
+
+  opacity: .18;
+
+  background-image:
+    repeating-linear-gradient(
+      8deg,
+      transparent 0px,
+      transparent 5px,
+      rgba(255, 255, 255, .018) 6px,
+      transparent 8px
+    ),
+    repeating-linear-gradient(
+      -13deg,
+      transparent 0px,
+      transparent 8px,
+      rgba(243, 200, 75, .018) 9px,
+      transparent 11px
+    );
+
+  mix-blend-mode: screen;
+}
+
+
+/* =========================================================
+   HEADER
+========================================================= */
+
+.header {
+
+  position: fixed;
+
+  top: 0;
+  left: 0;
+
+  width: 100%;
+
+  height: var(--header-height);
+
+  z-index: 1000;
+
+  background:
+    linear-gradient(
+      180deg,
+      rgba(7, 19, 33, .96),
+      rgba(7, 19, 33, .76)
+    );
+
+  border-bottom: 1px solid rgba(244, 231, 189, .10);
+
+  backdrop-filter: blur(14px);
+
+  transition:
+    background .4s ease,
+    box-shadow .4s ease;
+}
+
+.header.scrolled {
+
+  box-shadow:
+    0 15px 45px rgba(0, 0, 0, .30);
+}
+
+.header-container {
+
+  width: min(1180px, calc(100% - 50px));
+
+  height: 100%;
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 30px;
+}
+
+
+/* =========================================================
+   LOGO
+========================================================= */
+
+.logo {
+
+  position: relative;
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 6px;
+
+  font-family: var(--hand);
+
+  font-size: 34px;
+
+  font-weight: 600;
+
+  color: var(--cream);
+
+  white-space: nowrap;
+
+  transition: transform .3s ease;
+}
+
+.logo:hover {
+  transform: rotate(-2deg) scale(1.03);
+}
+
+.logo span {
+  font-size: 25px;
+}
+
+
+/* =========================================================
+   NAV
+========================================================= */
+
+.nav {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 32px;
+
+  margin-left: auto;
+}
+
+.nav-link {
+
+  position: relative;
+
+  padding: 8px 0;
+
+  color: rgba(244, 231, 189, .68);
+
+  font-family: var(--mono);
+
+  font-size: 12px;
+
+  letter-spacing: .07em;
+
+  text-transform: uppercase;
+
+  transition:
+    color .3s ease,
+    transform .3s ease;
+}
+
+.nav-link::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 0;
+  bottom: 0;
+
+  width: 0;
+  height: 1px;
+
+  background: var(--yellow);
+
+  transition: width .3s ease;
+}
+
+.nav-link:hover,
+.nav-link.active {
+
+  color: var(--yellow-light);
+
+  transform: translateY(-1px);
+}
+
+.nav-link:hover::after,
+.nav-link.active::after {
+  width: 100%;
+}
+
+
+/* =========================================================
+   HEADER CONTROLS
+========================================================= */
+
+.header-controls {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+}
+
+.theme-toggle {
+
+  width: 40px;
+  height: 40px;
+
+  border: 1px solid var(--border);
+
+  border-radius: 50%;
+
+  background: transparent;
+
+  color: var(--yellow);
+
+  cursor: pointer;
+
+  display: grid;
+  place-items: center;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+.theme-toggle:hover {
+
+  transform: rotate(15deg);
+
+  background: rgba(243, 200, 75, .10);
+}
+
+.theme-toggle .moon {
+  display: none;
+}
+
+body.light-mode .theme-toggle .sun {
+  display: none;
+}
+
+body.light-mode .theme-toggle .moon {
+  display: inline;
+}
+
+
+/* =========================================================
+   MENU MOBILE
+========================================================= */
+
+.menu-toggle {
+
+  display: none;
+
+  width: 42px;
+  height: 42px;
+
+  border: 1px solid var(--border);
+
+  background: transparent;
+
+  cursor: pointer;
+
+  flex-direction: column;
+
+  justify-content: center;
+
+  align-items: center;
+
+  gap: 5px;
+}
+
+.menu-toggle span {
+
+  width: 19px;
+  height: 1px;
+
+  background: var(--cream);
+
+  transition:
+    transform .3s ease,
+    opacity .3s ease;
+}
+
+.menu-open .menu-toggle span:nth-child(1) {
+  transform: translateY(6px) rotate(45deg);
+}
+
+.menu-open .menu-toggle span:nth-child(2) {
+  opacity: 0;
+}
+
+.menu-open .menu-toggle span:nth-child(3) {
+  transform: translateY(-6px) rotate(-45deg);
+}
+
+
+/* =========================================================
+   SEÇÕES
+========================================================= */
+
+.section {
+
+  position: relative;
+
+  width: 100%;
+}
+
+.section-container {
+
+  width: min(1180px, calc(100% - 50px));
+
+  margin: auto;
+}
+
+
+/* =========================================================
+   HERO
+========================================================= */
+
+.hero {
+
+  min-height: 100svh;
+
+  padding-top: var(--header-height);
+
+  display: flex;
+
+  align-items: center;
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(
+      circle at 76% 25%,
+      rgba(34, 87, 121, .60),
+      transparent 30%
+    ),
+
+    radial-gradient(
+      circle at 20% 80%,
+      rgba(23, 75, 112, .40),
+      transparent 32%
+    ),
+
+    linear-gradient(
+      130deg,
+      #06111d 0%,
+      #0a1b2c 52%,
+      #0c2940 100%
+    );
+}
+
+
+/* =========================================================
+   HERO PINTURA
+========================================================= */
+
+.hero-art {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+
+  overflow: hidden;
+}
+
+
+/* Lua */
+
+.moon-art {
+
+  position: absolute;
+
+  top: 17%;
+  right: 17%;
+
+  width: 82px;
+  height: 82px;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle at 35% 35%,
+      #fff0a1 0 5%,
+      transparent 6%
+    ),
+    radial-gradient(
+      circle at 60% 65%,
+      #dcae38 0 6%,
+      transparent 7%
+    ),
+    var(--yellow);
+
+  box-shadow:
+    0 0 20px rgba(243, 200, 75, .45),
+    0 0 60px rgba(243, 200, 75, .14);
+
+  filter: saturate(1.05);
+
+  animation: moonFloat 8s ease-in-out infinite;
+}
+
+@keyframes moonFloat {
+
+  0%,
+  100% {
+    transform: translateY(0);
+  }
+
+  50% {
+    transform: translateY(-9px);
+  }
+}
+
+
+/* Estrelas */
+
+.star {
+
+  position: absolute;
+
+  width: 9px;
+  height: 9px;
+
+  background: var(--yellow);
+
+  border-radius: 50%;
+
+  box-shadow:
+    0 0 12px rgba(243, 200, 75, .65);
+}
+
+.star::before,
+.star::after {
+
+  content: "";
+
+  position: absolute;
+
+  left: 50%;
+  top: 50%;
+
+  transform: translate(-50%, -50%);
+
+  background: var(--yellow);
+}
+
+.star::before {
+  width: 24px;
+  height: 2px;
+}
+
+.star::after {
+  width: 2px;
+  height: 24px;
+}
+
+.star-1 {
+  top: 20%;
+  left: 52%;
+}
+
+.star-2 {
+  top: 34%;
+  right: 30%;
+  transform: scale(.65);
+}
+
+.star-3 {
+  top: 12%;
+  left: 30%;
+  transform: scale(.55);
+}
+
+.star-4 {
+  top: 42%;
+  right: 13%;
+  transform: scale(.48);
+}
+
+.star-5 {
+  top: 27%;
+  left: 67%;
+  transform: scale(.75);
+}
+
+
+/* =========================================================
+   VILA
+========================================================= */
+
+.village {
+
+  position: absolute;
+
+  left: 0;
+  right: 0;
+  bottom: 0;
+
+  height: 38%;
+
+  opacity: .9;
+
+  background:
+    linear-gradient(
+      155deg,
+      transparent 0 25%,
+      #081522 26% 100%
+    );
+}
+
+.house {
+
+  position: absolute;
+
+  bottom: 12%;
+
+  background: #091623;
+
+  border: 1px solid rgba(243, 200, 75, .13);
+}
+
+.house::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: -8px;
+  top: -15px;
+
+  width: calc(100% + 16px);
+  height: 25px;
+
+  background: #10283b;
+
+  transform: skewX(-35deg);
+}
+
+.house-1 {
+  left: 8%;
+  width: 75px;
+  height: 62px;
+}
+
+.house-2 {
+  left: 20%;
+  width: 105px;
+  height: 83px;
+}
+
+.house-3 {
+  left: 42%;
+  width: 78px;
+  height: 65px;
+}
+
+.house-4 {
+  right: 11%;
+  width: 120px;
+  height: 90px;
+}
+
+
+/* =========================================================
+   IGREJA
+========================================================= */
+
+.church {
+
+  position: absolute;
+
+  left: 33%;
+
+  bottom: 10%;
+
+  width: 95px;
+  height: 145px;
+}
+
+.church-tower {
+
+  position: absolute;
+
+  bottom: 0;
+  left: 25px;
+
+  width: 45px;
+  height: 110px;
+
+  background: #091623;
+}
+
+.church-roof {
+
+  position: absolute;
+
+  top: 0;
+  left: 19px;
+
+  width: 58px;
+  height: 58px;
+
+  background: #10283b;
+
+  clip-path: polygon(50% 0, 100% 100%, 0 100%);
+}
+
+
+/* =========================================================
+   ÁRVORE
+========================================================= */
+
+.tree {
+
+  position: absolute;
+
+  left: 6%;
+
+  bottom: 7%;
+
+  width: 110px;
+  height: 330px;
+
+  filter: blur(.1px);
+
+  transform-origin: bottom center;
+
+  animation: treeMove 7s ease-in-out infinite;
+}
+
+@keyframes treeMove {
+
+  0%,
+  100% {
+    transform: rotate(-1deg);
+  }
+
+  50% {
+    transform: rotate(1deg);
+  }
+}
+
+.tree::before {
+
+  content: "";
+
+  position: absolute;
+
+  left: 45px;
+  bottom: 0;
+
+  width: 30px;
+  height: 270px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #101c19,
+      #1a3025,
+      #0b1717
+    );
+
+  border-radius: 60% 40% 10% 10%;
+}
+
+.tree span {
+
+  position: absolute;
+
+  border-radius: 50%;
+
+  background:
+    radial-gradient(
+      circle,
+      #275e45,
+      #123a33 58%,
+      #0b2028
+    );
+}
+
+.tree span:nth-child(1) {
+
+  width: 130px;
+  height: 160px;
+
+  left: -8px;
+  top: 0;
+
+  transform: rotate(20deg);
+}
+
+.tree span:nth-child(2) {
+
+  width: 150px;
+  height: 170px;
+
+  left: 25px;
+  top: 65px;
+
+  transform: rotate(-15deg);
+}
+
+.tree span:nth-child(3) {
+
+  width: 100px;
+  height: 150px;
+
+  left: -25px;
+  top: 105px;
+}
+
+.tree span:nth-child(4) {
+
+  width: 90px;
+  height: 140px;
+
+  left: 55px;
+  top: 145px;
+}
+
+
+/* =========================================================
+   HERO CONTAINER
+========================================================= */
+
+.hero-container {
+
+  position: relative;
+
+  z-index: 5;
+
+  width: min(1180px, calc(100% - 50px));
+
+  margin: auto;
+
+  display: grid;
+
+  grid-template-columns: 1fr 220px;
+
+  align-items: center;
+
+  gap: 60px;
+}
+
+
+/* =========================================================
+   HERO CONTENT
+========================================================= */
+
+.hero-content {
+
+  max-width: 680px;
+}
+
+.eyebrow {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 16px;
+
+  margin-bottom: 15px;
+
+  font-family: var(--mono);
+
+  font-size: 11px;
+
+  letter-spacing: .22em;
+
+  color: var(--yellow);
+}
+
+.eyebrow i {
+
+  display: block;
+
+  width: 70px;
+  height: 1px;
+
+  background: var(--yellow);
+}
+
+
+/* =========================================================
+   TÍTULO
+========================================================= */
+
+.hero h1 {
+
+  position: relative;
+
+  margin-left: -5px;
+
+  font-family: var(--hand);
+
+  font-size: clamp(90px, 13vw, 180px);
+
+  line-height: .76;
+
+  font-weight: 500;
+
+  letter-spacing: -.055em;
+
+  color: var(--cream);
+
+  text-shadow:
+    3px 4px 0 rgba(0, 0, 0, .16);
+}
+
+.name-highlight {
+  color: var(--yellow);
+}
+
+.name-light {
+  color: var(--cream);
+}
+
+.cactus {
+
+  display: inline-block;
+
+  margin-left: 8px;
+
+  font-family: sans-serif;
+
+  font-size: .23em;
+
+  color: #6a9b67;
+
+  transform:
+    rotate(-8deg)
+    translateY(-20px);
+}
+
+
+/* =========================================================
+   DESCRIÇÃO
+========================================================= */
+
+.hero-description {
+
+  max-width: 510px;
+
+  margin-top: 42px;
+
+  color: rgba(244, 231, 189, .67);
+
+  font-size: 16px;
+
+  line-height: 1.75;
+}
+
+
+/* =========================================================
+   BOTÕES
+========================================================= */
+
+.hero-actions {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 30px;
+
+  margin-top: 35px;
+}
+
+.btn-primary {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 20px;
+
+  padding: 15px 22px;
+
+  color: #071321;
+
+  background: var(--yellow);
+
+  font-family: var(--mono);
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: .08em;
+
+  transition:
+    transform .3s ease,
+    box-shadow .3s ease;
+}
+
+.btn-primary span {
+  font-size: 18px;
+}
+
+.btn-primary:hover {
+
+  transform: translateY(-3px);
+
+  box-shadow:
+    0 12px 30px rgba(243, 200, 75, .18);
+}
+
+.btn-link {
+
+  display: inline-flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: var(--cream);
+
+  font-family: var(--mono);
+
+  font-size: 11px;
+
+  text-transform: uppercase;
+
+  letter-spacing: .07em;
+
+  opacity: .72;
+
+  transition:
+    opacity .3s ease,
+    transform .3s ease;
+}
+
+.btn-link:hover {
+
+  opacity: 1;
+
+  transform: translateX(4px);
+}
+
+
+/* =========================================================
+   FRASE HERO
+========================================================= */
+
+.hero-quote {
+
+  align-self: end;
+
+  margin-bottom: 70px;
+
+  position: relative;
+}
+
+.hero-quote p {
+
+  font-family: var(--hand);
+
+  font-size: 27px;
+
+  line-height: .95;
+
+  color: rgba(244, 231, 189, .62);
+
+  transform: rotate(-5deg);
+}
+
+.quote-arrow {
+
+  margin-top: 15px;
+
+  margin-left: 65px;
+
+  color: var(--yellow);
+
+  font-size: 34px;
+
+  transform: rotate(-15deg);
+}
+
+
+/* =========================================================
+   PROJETOS
+========================================================= */
+
+.projects-section {
+
+  padding: 125px 0 100px;
+
+  background:
+
+    radial-gradient(
+      circle at 90% 20%,
+      rgba(38, 104, 141, .18),
+      transparent 30%
+    ),
+
+    #081725;
+}
+
+
+/* =========================================================
+   CABEÇALHOS
+========================================================= */
+
+.section-heading {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  margin-bottom: 48px;
+}
+
+.heading-title {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 18px;
+
+  font-family: var(--mono);
+
+  font-size: 12px;
+
+  letter-spacing: .20em;
+
+  color: var(--yellow);
+}
+
+.heading-title i {
+
+  display: block;
+
+  width: 75px;
+  height: 1px;
+
+  background: var(--yellow);
+}
+
+.view-all {
+
+  font-family: var(--mono);
+
+  font-size: 10px;
+
+  text-transform: uppercase;
+
+  letter-spacing: .08em;
+
+  color: rgba(244, 231, 189, .60);
+
+  transition: color .3s ease;
+}
+
+.view-all span {
+  margin-left: 10px;
+  color: var(--yellow);
+}
+
+.view-all:hover {
+  color: var(--cream);
+}
+
+
+/* =========================================================
+   GRID PROJETOS
+========================================================= */
+
+.projects-layout {
+
+  display: grid;
+
+  grid-template-columns: 1fr 215px;
+
+  gap: 50px;
+
+  align-items: start;
+}
+
+.projects-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, minmax(0, 1fr));
+
+  gap: 20px;
+}
+
+
+/* =========================================================
+   CARD PROJETO
+========================================================= */
+
+.project-card {
+
+  position: relative;
+
+  min-height: 405px;
+
+  background: #0d2031;
+
+  border: 1px solid rgba(244, 231, 189, .12);
+
+  overflow: hidden;
+
+  transition:
+    transform .45s cubic-bezier(.2,.8,.2,1),
+    border-color .35s ease,
+    box-shadow .35s ease;
+}
+
+.project-card:hover {
+
+  transform:
+    translateY(-8px)
+    rotateX(1deg);
+
+  border-color:
+    rgba(243, 200, 75, .45);
+
+  box-shadow:
+    0 25px 55px rgba(0, 0, 0, .28);
+}
+
+
+/* =========================================================
+   IMAGEM CARD
+========================================================= */
+
+.project-image {
+
+  position: relative;
+
+  height: 205px;
+
+  overflow: hidden;
+
+  background:
+    radial-gradient(
+      circle at 30% 25%,
+      rgba(243, 200, 75, .45),
+      transparent 10%
+    ),
+    linear-gradient(
+      135deg,
+      #174b70,
+      #071321
+    );
+}
+
+.project-image::after {
+
+  content: "";
+
+  position: absolute;
+
+  inset: 0;
+
+  background:
+    repeating-linear-gradient(
+      -12deg,
+      transparent 0 8px,
+      rgba(255,255,255,.035) 9px 11px
+    );
+
+  pointer-events: none;
+}
+
+.project-image img {
+
+  width: 100%;
+  height: 100%;
+
+  object-fit: cover;
+
+  opacity: .85;
+
+  transition:
+    transform .6s ease,
+    opacity .4s ease;
+}
+
+.project-card:hover .project-image img {
+
+  transform: scale(1.06);
+
+  opacity: 1;
+}
+
+
+/* =========================================================
+   OVERLAY
+========================================================= */
+
+.project-image-overlay {
+
+  position: absolute;
+
+  inset: 0;
+
+  display: grid;
+
+  place-items: center;
+
+  font-size: 50px;
+
+  opacity: .8;
+
+  z-index: 2;
+}
+
+
+/* =========================================================
+   MINI NOITE ESTRELADA
+========================================================= */
+
+.portfolio-image {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  background:
+
+    radial-gradient(
+      circle at 75% 25%,
+      var(--yellow) 0 8px,
+      transparent 9px
+    ),
+
+    radial-gradient(
+      circle at 25% 35%,
+      var(--yellow) 0 4px,
+      transparent 5px
+    ),
+
+    linear-gradient(
+      145deg,
+      #245d80,
+      #081624
+    );
+}
+
+.mini-stars {
+
+  position: absolute;
+
+  top: 25px;
+  left: 25px;
+
+  color: var(--yellow);
+
+  font-size: 20px;
+
+  letter-spacing: 15px;
+}
+
+.mini-landscape {
+
+  font-size: 65px;
+
+  transform:
+    translateY(25px)
+    rotate(-7deg);
+}
+
+
+/* =========================================================
+   FUTURO
+========================================================= */
+
+.future-image {
+
+  display: grid;
+
+  place-items: center;
+
+  background:
+
+    radial-gradient(
+      circle at 65% 35%,
+      rgba(243, 200, 75, .35),
+      transparent 15%
+    ),
+
+    linear-gradient(
+      145deg,
+      #0e314a,
+      #071321
+    );
+}
+
+.future-stars {
+
+  position: absolute;
+
+  top: 30px;
+  left: 30px;
+
+  color: var(--yellow);
+
+  letter-spacing: 12px;
+}
+
+.future-moon {
+
+  color: var(--yellow);
+
+  font-size: 72px;
+
+  text-shadow:
+    0 0 20px rgba(243, 200, 75, .35);
+}
+
+
+/* =========================================================
+   CONTEÚDO CARD
+========================================================= */
+
+.project-content {
+
+  position: relative;
+
+  padding: 25px;
+}
+
+.project-content h3 {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 7px;
+
+  font-family: var(--hand);
+
+  font-size: 30px;
+
+  font-weight: 500;
+
+  color: var(--cream);
+}
+
+.project-content h3 span {
+  font-family: sans-serif;
+  font-size: 15px;
+}
+
+.project-content p {
+
+  margin-top: 8px;
+
+  color: rgba(244, 231, 189, .53);
+
+  font-size: 12px;
+
+  line-height: 1.65;
+}
+
+
+/* =========================================================
+   TAGS
+========================================================= */
+
+.project-tags {
+
+  display: flex;
+
+  flex-wrap: wrap;
+
+  gap: 6px;
+
+  margin-top: 18px;
+}
+
+.project-tags span {
+
+  padding: 5px 8px;
+
+  border: 1px solid rgba(243, 200, 75, .18);
+
+  color: rgba(243, 200, 75, .72);
+
+  font-family: var(--mono);
+
+  font-size: 8px;
+
+  letter-spacing: .06em;
+
+  text-transform: uppercase;
+}
+
+
+/* =========================================================
+   SETA
+========================================================= */
+
+.project-arrow {
+
+  position: absolute;
+
+  right: 23px;
+  bottom: 20px;
+
+  width: 34px;
+  height: 34px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: 1px solid rgba(243, 200, 75, .22);
+
+  color: var(--yellow);
+
+  font-size: 18px;
+
+  transition:
+    transform .3s ease,
+    background .3s ease;
+}
+
+.project-card:hover .project-arrow {
+
+  transform: translate(3px, -3px);
+
+  background: rgba(243, 200, 75, .10);
+}
+
+
+/* =========================================================
+   SKILLS PREVIEW
+========================================================= */
+
+.skills-preview {
+
+  padding-left: 30px;
+
+  border-left:
+    1px solid rgba(244, 231, 189, .13);
+}
+
+.skills-heading {
+
+  font-family: var(--mono);
+
+  font-size: 10px;
+
+  line-height: 1.6;
+
+  letter-spacing: .17em;
+
+  color: rgba(244, 231, 189, .55);
+
+  margin-bottom: 25px;
+}
+
+.skills-list {
+
+  list-style: none;
+
+  display: flex;
+
+  flex-direction: column;
+
+  gap: 20px;
+}
+
+.skills-list li {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 12px;
+
+  color: rgba(244, 231, 189, .70);
+
+  font-family: var(--mono);
+
+  font-size: 10px;
+
+  transition:
+    color .3s ease,
+    transform .3s ease;
+}
+
+.skills-list li:hover {
+
+  color: var(--yellow);
+
+  transform: translateX(5px);
+}
+
+.skill-icon {
+
+  width: 27px;
+  height: 27px;
+
+  display: grid;
+
+  place-items: center;
+
+  border: 1px solid rgba(243, 200, 75, .28);
+
+  color: var(--yellow);
+
+  font-size: 9px;
+
+  font-weight: 500;
+}
+
+
+/* =========================================================
+   SLOGAN
+========================================================= */
+
+.section-slogan {
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: center;
+
+  gap: 15px;
+
+  margin-top: 85px;
+
+  font-family: var(--hand);
+
+  font-size: 28px;
+
+  color: rgba(244, 231, 189, .45);
+
+  transform: rotate(-2deg);
+}
+
+.section-slogan i {
+
+  width: 45px;
+  height: 1px;
+
+  background: var(--yellow);
+
+  opacity: .5;
+}
+
+
+/* =========================================================
+   SOBRE
+========================================================= */
+
+.about-section {
+
+  padding: 125px 0;
+
+  background: #071321;
+}
+
+.about-grid {
+
+  display: grid;
+
+  grid-template-columns: .9fr 1.1fr;
+
+  gap: 90px;
+
+  align-items: center;
+}
+
+
+/* =========================================================
+   ARTE SOBRE
+========================================================= */
+
+.about-art {
+
+  position: relative;
+
+  height: 500px;
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(
+      circle at 72% 25%,
+      var(--yellow) 0 30px,
+      transparent 31px
+    ),
+
+    linear-gradient(
+      150deg,
+      #225c7c,
+      #071321
+    );
+
+  border: 1px solid rgba(244, 231, 189, .12);
+}
+
+.about-sun {
+
+  position: absolute;
+
+  right: 65px;
+  top: 60px;
+
+  width: 70px;
+  height: 70px;
+
+  border-radius: 50%;
+
+  background: var(--yellow);
+
+  box-shadow:
+    0 0 35px rgba(243, 200, 75, .35);
+}
+
+.about-mountains {
+
+  position: absolute;
+
+  bottom: -5px;
+  left: -10%;
+
+  width: 125%;
+  height: 58%;
+
+  background:
+    linear-gradient(
+      135deg,
+      #102f43 0 48%,
+      #0b1e2d 49% 100%
+    );
+
+  clip-path:
+    polygon(
+      0 80%,
+      20% 42%,
+      34% 66%,
+      50% 18%,
+      64% 58%,
+      78% 35%,
+      100% 70%,
+      100% 100%,
+      0 100%
+    );
+}
+
+.about-tree {
+
+  position: absolute;
+
+  left: 12%;
+  bottom: 0;
+
+  width: 85px;
+  height: 280px;
+
+  background:
+    linear-gradient(
+      90deg,
+      #0b191b,
+      #173527,
+      #081317
+    );
+
+  clip-path:
+    polygon(
+      45% 0,
+      58% 24%,
+      100% 50%,
+      62% 51%,
+      82% 70%,
+      55% 64%,
+      58% 100%,
+      40% 100%,
+      43% 66%,
+      18% 77%,
+      35% 53%,
+      0 58%,
+      35% 35%
+    );
+}
+
+
+/* =========================================================
+   SOBRE CONTEÚDO
+========================================================= */
+
+.about-small {
+
+  font-family: var(--mono);
+
+  font-size: 10px;
+
+  letter-spacing: .17em;
+
+  color: var(--yellow);
+}
+
+.about-content h2 {
+
+  margin-top: 18px;
+
+  max-width: 600px;
+
+  font-family: var(--hand);
+
+  font-size: clamp(55px, 6vw, 82px);
+
+  font-weight: 500;
+
+  line-height: .9;
+
+  color: var(--cream);
+}
+
+.about-content h2 span {
+  color: var(--yellow);
+}
+
+.about-content p {
+
+  max-width: 560px;
+
+  margin-top: 25px;
+
+  color: rgba(244, 231, 189, .60);
+
+  font-size: 14px;
+
+  line-height: 1.8;
+}
+
+.about-signature {
+
+  margin-top: 35px;
+
+  font-family: var(--hand);
+
+  font-size: 37px;
+
+  color: var(--yellow);
+
+  transform: rotate(-5deg);
+
+  display: inline-block;
+}
+
+
+/* =========================================================
+   HABILIDADES COMPLETAS
+========================================================= */
+
+.skills-section {
+
+  padding: 125px 0;
+
+  background:
+    radial-gradient(
+      circle at 20% 20%,
+      rgba(39, 104, 141, .16),
+      transparent 30%
+    ),
+
+    #081725;
+}
+
+.skills-full-grid {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 1px;
+
+  background: rgba(244, 231, 189, .13);
+
+  border: 1px solid rgba(244, 231, 189, .13);
+}
+
+.skill-card {
+
+  position: relative;
+
+  min-height: 260px;
+
+  padding: 35px;
+
+  background: #081725;
+
+  overflow: hidden;
+
+  transition:
+    background .35s ease,
+    transform .35s ease;
+}
+
+.skill-card:hover {
+
+  background: #0d2234;
+
+  transform: translateY(-3px);
+
+  z-index: 2;
+}
+
+.skill-number {
+
+  position: absolute;
+
+  right: 25px;
+  top: 25px;
+
+  font-family: var(--mono);
+
+  font-size: 9px;
+
+  color: rgba(244, 231, 189, .25);
+}
+
+.skill-big-icon {
+
+  font-family: var(--mono);
+
+  font-size: 38px;
+
+  color: var(--yellow);
+
+  margin-bottom: 22px;
+}
+
+.skill-card h3 {
+
+  font-family: var(--hand);
+
+  font-size: 33px;
+
+  font-weight: 500;
+
+  color: var(--cream);
+}
+
+.skill-card p {
+
+  margin-top: 8px;
+
+  max-width: 230px;
+
+  color: rgba(244, 231, 189, .50);
+
+  font-size: 11px;
+
+  line-height: 1.7;
+}
+
+
+/* =========================================================
+   CONTATO
+========================================================= */
+
+.contact-section {
+
+  position: relative;
+
+  padding: 150px 0;
+
+  overflow: hidden;
+
+  background:
+
+    radial-gradient(
+      circle at 80% 30%,
+      rgba(243, 200, 75, .12),
+      transparent 20%
+    ),
+
+    linear-gradient(
+      140deg,
+      #071321,
+      #102b40
+    );
+}
+
+.contact-art {
+
+  position: absolute;
+
+  inset: 0;
+
+  pointer-events: none;
+}
+
+.contact-star {
+
+  position: absolute;
+
+  width: 7px;
+  height: 7px;
+
+  border-radius: 50%;
+
+  background: var(--yellow);
+
+  box-shadow:
+    0 0 15px rgba(243, 200, 75, .6);
+}
+
+.star-a {
+  top: 20%;
+  right: 20%;
+}
+
+.star-b {
+  top: 35%;
+  right: 10%;
+}
+
+.star-c {
+  top: 12%;
+  right: 38%;
+}
+
+
+/* =========================================================
+   CONTATO CONTEÚDO
+========================================================= */
+
+.contact-content {
+
+  position: relative;
+
+  max-width: 850px;
+}
+
+.contact-eyebrow {
+
+  font-family: var(--mono);
+
+  font-size: 10px;
+
+  letter-spacing: .20em;
+
+  color: var(--yellow);
+}
+
+.contact-content h2 {
+
+  margin-top: 20px;
+
+  font-family: var(--hand);
+
+  font-size: clamp(70px, 9vw, 125px);
+
+  font-weight: 500;
+
+  line-height: .78;
+
+  color: var(--cream);
+}
+
+.contact-content h2 span {
+  color: var(--yellow);
+}
+
+.contact-content > p {
+
+  max-width: 470px;
+
+  margin-top: 30px;
+
+  color: rgba(244, 231, 189, .58);
+
+  line-height: 1.7;
+
+  font-size: 14px;
+}
+
+
+/* =========================================================
+   LINKS CONTATO
+========================================================= */
+
+.contact-links {
+
+  display: grid;
+
+  grid-template-columns:
+    repeat(3, 1fr);
+
+  gap: 12px;
+
+  margin-top: 55px;
+}
+
+.contact-link {
+
+  display: flex;
+
+  align-items: center;
+
+  gap: 15px;
+
+  padding: 18px;
+
+  border: 1px solid rgba(244, 231, 189, .12);
+
+  background: rgba(7, 19, 33, .25);
+
+  transition:
+    transform .3s ease,
+    background .3s ease,
+    border-color .3s ease;
+}
+
+.contact-link:hover {
+
+  transform: translateY(-5px);
+
+  background: rgba(243, 200, 75, .06);
+
+  border-color:
+    rgba(243, 200, 75, .35);
+}
+
+.contact-link > span {
+
+  color: var(--yellow);
+
+  font-size: 22px;
+}
+
+.contact-link small {
+
+  display: block;
+
+  font-family: var(--mono);
+
+  font-size: 8px;
+
+  letter-spacing: .12em;
+
+  color: rgba(244, 231, 189, .40);
+}
+
+.contact-link strong {
+
+  display: block;
+
+  margin-top: 4px;
+
+  font-family: var(--mono);
+
+  font-size: 9px;
+
+  font-weight: 400;
+
+  color: var(--cream);
+}
+
+
+/* =========================================================
+   FOOTER
+========================================================= */
+
+.footer {
+
+  padding: 40px 0;
+
+  border-top:
+    1px solid rgba(244, 231, 189, .10);
+
+  background: #06111d;
+}
+
+.footer-container {
+
+  width: min(1180px, calc(100% - 50px));
+
+  margin: auto;
+
+  display: flex;
+
+  align-items: center;
+
+  justify-content: space-between;
+
+  gap: 25px;
+}
+
+.footer-logo {
+
+  font-family: var(--hand);
+
+  font-size: 27px;
+
+  color: var(--cream);
+}
+
+.footer p {
+
+  font-family: var(--hand);
+
+  font-size: 23px;
+
+  color: rgba(244, 231, 189, .40);
+}
+
+.footer span {
+
+  font-family: var(--mono);
+
+  font-size: 8px;
+
+  color: rgba(244, 231, 189, .30);
+}
+
+
+/* =========================================================
+   ANIMAÇÕES DE ENTRADA
+========================================================= */
+
+.hero-content,
+.hero-quote {
+
+  animation:
+    fadeUp .9s cubic-bezier(.2,.8,.2,1) both;
+}
+
+.hero-quote {
+  animation-delay: .2s;
+}
+
+@keyframes fadeUp {
+
+  from {
+    opacity: 0;
+    transform: translateY(25px);
+  }
+
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — TABLET
+========================================================= */
+
+@media (max-width: 1050px) {
+
+  .nav {
+    gap: 20px;
+  }
+
+  .projects-layout {
+    grid-template-columns: 1fr;
+  }
+
+  .skills-preview {
+
+    padding-left: 0;
+
+    padding-top: 30px;
+
+    border-left: 0;
+
+    border-top:
+      1px solid rgba(244, 231, 189, .13);
+  }
+
+  .skills-list {
+
+    display: grid;
+
+    grid-template-columns:
+      repeat(3, 1fr);
+  }
+
+  .about-grid {
+    gap: 50px;
+  }
+
+}
+
+
+/* =========================================================
+   RESPONSIVIDADE — MOBILE
+========================================================= */
+
+@media (max-width: 760px) {
+
+  :root {
+    --header-height: 70px;
+  }
+
+
+  /* Header */
+
+  .header-container {
+
+    width: calc(100% - 30px);
+
+  }
+
+  .logo {
+    font-size: 30px;
+  }
+
+  .nav {
+
+    position: absolute;
+
+    top: var(--header-height);
+
+    left: 15px;
+    right: 15px;
+
+    padding: 20px;
+
+    flex-direction: column;
+
+    align-items: flex-start;
+
+    gap: 0;
+
+    background:
+      rgba(7, 19, 33, .97);
+
+    border:
+      1px solid rgba(244, 231, 189, .12);
+
+    opacity: 0;
+
+    visibility: hidden;
+
+    transform: translateY(-10px);
+
+    transition:
+      opacity .3s ease,
+      visibility .3s ease,
+      transform .3s ease;
+  }
+
+  .menu-open .nav {
+
+    opacity: 1;
+
+    visibility: visible;
+
+    transform: translateY(0);
+  }
+
+  .nav-link {
+
+    width: 100%;
+
+    padding: 14px 0;
+
+    border-bottom:
+      1px solid rgba(244, 231, 189, .07);
+  }
+
+  .menu-toggle {
+    display: flex;
+  }
+
+
+  /* Hero */
+
+  .hero {
+
+    min-height: 800px;
+
+    align-items: center;
+  }
+
+  .hero-container {
+
+    width: calc(100% - 30px);
+
+    grid-template-columns: 1fr;
+
+  }
+
+  .hero h1 {
+
+    font-size:
+      clamp(80px, 24vw, 135px);
+
+    line-height: .78;
+  }
+
+  .hero-description {
+
+    max-width: 90%;
+
+    margin-top: 32px;
+
+    font-size: 13px;
+  }
+
+  .hero-actions {
+
+    align-items: flex-start;
+
+    flex-direction: column;
+
+    gap: 20px;
+  }
+
+  .hero-quote {
+
+    display: none;
+  }
+
+  .tree {
+
+    left: -30px;
+
+    opacity: .65;
+
+    transform: scale(.75);
+
+    transform-origin: bottom left;
+  }
+
+  .moon-art {
+
+    right: 10%;
+
+    top: 18%;
+
+    width: 60px;
+    height: 60px;
+  }
+
+
+  /* Seções */
+
+  .section-container {
+
+    width: calc(100% - 30px);
+  }
+
+  .projects-section,
+  .about-section,
+  .skills-section {
+
+    padding: 85px 0;
+  }
+
+
+  /* Projetos */
+
+  .section-heading {
+
+    align-items: flex-start;
+
+    gap: 20px;
+  }
+
+  .projects-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+  .project-card {
+    min-height: 390px;
+  }
+
+
+  /* Skills */
+
+  .skills-list {
+
+    grid-template-columns:
+      repeat(2, 1fr);
+  }
+
+
+  /* Sobre */
+
+  .about-grid {
+
+    grid-template-columns: 1fr;
+
+    gap: 45px;
+  }
+
+  .about-art {
+    height: 350px;
+  }
+
+  .about-content h2 {
+    font-size: 65px;
+  }
+
+
+  /* Skills full */
+
+  .skills-full-grid {
+
+    grid-template-columns: 1fr;
+  }
+
+
+  /* Contato */
+
+  .contact-section {
+
+    padding: 100px 0;
+  }
+
+  .contact-content h2 {
+
+    font-size:
+      clamp(70px, 21vw, 110px);
+  }
+
+  .contact-links {
+
+    grid-template-columns: 1fr;
+  }
+
+
+  /* Footer */
+
+  .footer-container {
+
+    flex-direction: column;
+
+    text-align: center;
+  }
+
+}
+
+
+/* =========================================================
+   MOBILE PEQUENO
+========================================================= */
+
+@media (max-width: 420px) {
+
+  .hero h1 {
+    font-size: 76px;
+  }
+
+  .skills-list {
+    grid-template-columns: 1fr;
+  }
+
+  .hero-description {
+    max-width: 100%;
+  }
+
+  .heading-title {
+    font-size: 9px;
+  }
+
+}
+
+
+/* =========================================================
+   REDUÇÃO DE MOVIMENTO
+========================================================= */
+
+@media (prefers-reduced-motion: reduce) {
+
+  *,
+  *::before,
+  *::after {
+
+    animation-duration: .01ms !important;
+
+    animation-iteration-count: 1 !important;
+
+    scroll-behavior: auto !important;
+
+    transition-duration: .01ms !important;
+  }
+  }
